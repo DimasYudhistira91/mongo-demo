@@ -44,9 +44,31 @@ console.log(result);
 
 // Querying Documents
 async function getCourses() {
+  // Pagination
+  const pageNumber = 2;
+  const pageSize = 10;
+
   const courses = await Course
     .find({ author: 'Dimas', isPublished: true})
-    .limit(10)
+
+    // Logical Operators: OR, AND (fungsinya hampir sama dengan find)
+    // .or([{author: 'Dimas'}, {isPublished: true}])
+    // .and([])
+
+    // Regular Expressions
+    // Start with Dimas:
+    .find({author: /^Dimas/ })
+
+    // Ends with Yudhistira
+    .find({author: /Yudhistira$/i })  // i = insensitif
+
+    // Contains Dimas
+    .find({author: /.*Dimas.*/i })
+    
+    // Pagination
+    .skip((pageNumber -1) * pageSize)
+    .limit(pageSize)
+
     .sort({name: 1})
     .select({ name: 1, tags: 1});
 
