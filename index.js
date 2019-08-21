@@ -56,6 +56,7 @@ async function getCourses() {
     // .and([])
 
     // Regular Expressions
+    // find untuk mencari berdasarkan key dan value yg ada
     // Start with Dimas:
     .find({author: /^Dimas/ })
 
@@ -69,7 +70,10 @@ async function getCourses() {
     .skip((pageNumber -1) * pageSize)
     .limit(pageSize)
 
-    .sort({name: 1})
+    // Untuk mensortir data, berdasarkan abjad, dll
+    .sort({name: 1}) // 1 untuk a - z, -1 untuk z - a
+
+    // untuk menyeleksi data apa saja yang akan diambil/ditampilkan
     .select({ name: 1, tags: 1});
 
   console.log(courses);
